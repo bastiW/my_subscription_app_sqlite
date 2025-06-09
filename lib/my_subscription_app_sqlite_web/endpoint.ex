@@ -1,6 +1,5 @@
 defmodule MySubscriptionAppSqliteWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :my_subscription_app_sqlite
-  use Absinthe.Phoenix.Endpoint
   use AshGraphql.Subscription.Endpoint
 
   # The session will be stored in the cookie and signed,

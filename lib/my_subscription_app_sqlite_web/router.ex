@@ -24,7 +24,7 @@ defmodule MySubscriptionAppSqliteWeb.Router do
     forward "/playground", Absinthe.Plug.GraphiQL,
       schema: Module.concat(["MySubscriptionAppSqliteWeb.GraphqlSchema"]),
       socket: Module.concat(["MySubscriptionAppSqliteWeb.GraphqlSocket"]),
-      interface: :simple
+      interface: :playground
 
     forward "/", Absinthe.Plug,
       schema: Module.concat(["MySubscriptionAppSqliteWeb.GraphqlSchema"])
