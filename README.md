@@ -7,6 +7,55 @@ To start your Phoenix server:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
+## GraphQL API
+
+This application provides a GraphQL API for managing posts with real-time subscriptions.
+
+### Create a Post
+
+Use this mutation to create a new post:
+
+```graphql
+mutation CreatePost($input: CreatePostInput!) {
+  createPost(input: $input) {
+    result {
+      id
+      title
+      text
+    }
+  }
+}
+```
+
+With variables:
+```json
+{
+  "input": {
+    "title": "Big anouncement",
+    "text": "My second post"
+  }
+}
+```
+
+### Subscribe to Post Changes
+
+Use this subscription to receive real-time updates when posts are created or updated:
+
+```graphql
+subscription PostChanged {
+  postChanged {
+    created {
+      id
+      title
+    }
+    updated {
+      id
+      title
+    }
+  }
+}
+```
+
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
 ## Learn more
