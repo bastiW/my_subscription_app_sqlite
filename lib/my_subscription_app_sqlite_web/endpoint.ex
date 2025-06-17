@@ -18,7 +18,7 @@ defmodule MySubscriptionAppSqliteWeb.Endpoint do
 
 
 
-  socket "/ws/gql", MySubscriptionAppSqliteWeb.GraphqlSocket, websocket: true, longpoll: true
+  socket "/ws/gql", MySubscriptionAppSqliteWeb.GraphqlSocket, websocket: true, longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
   #
