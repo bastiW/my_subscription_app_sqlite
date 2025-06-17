@@ -13,6 +13,11 @@ defmodule MySubscriptionApp.Posts.Post do
   graphql do
     type :post
 
+    queries do
+      get :post, :read
+      list :posts, :read
+    end
+
     mutations do
       create :create_post, :create
       update :update_post, :update

@@ -35,3 +35,14 @@ my_subscription_app_sqlite-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# SQLite database files
+*.sqlite
+*.sqlite3
+*.db
+*_sqlite_*
+
+# SQLite WAL and SHM files
+*-wal
+*-shm
+
+
