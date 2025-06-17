@@ -1,5 +1,5 @@
-import { useQuery, useMutation, gql } from '@apollo/client'
-import { useState } from 'react'
+import { useQuery, useMutation, useSubscription, gql } from '@apollo/client'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -29,11 +29,37 @@ const CREATE_POST = gql`
   }
 `
 
+const POST_CHANGED_SUBSCRIPTION = gql`
+  subscription PostChanged {
+    postChanged {
+      created {
+        id
+        text
+        title
+      }
+    }
+  }
+`
+
 function App() {
-  const { loading, error, data, refetch } = useQuery(GET_POSTS)
+  const { loading, error, data, refetch, updateQuery } = useQuery(GET_POSTS)
   const [createPost, { loading: creating }] = useMutation(CREATE_POST)
+  const { data: subscriptionData } = useSubscription(POST_CHANGED_SUBSCRIPTION)
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
+
+  useEffect(() => {
+    if (subscriptionData?.postChanged?.created) {
+      const newPost = subscriptionData.postChanged.created
+      updateQuery((prev) => ({
+        posts: {
+          ...prev.posts,
+          count: prev.posts.count + 1,
+          results: [newPost, ...prev.posts.results]
+        }
+      }))
+    }
+  }, [subscriptionData, updateQuery])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -50,7 +76,6 @@ function App() {
       })
       setTitle('')
       setText('')
-      refetch()
     } catch (err) {
       console.error('Error creating post:', err)
     }
