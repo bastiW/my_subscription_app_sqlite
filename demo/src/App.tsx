@@ -42,7 +42,7 @@ const POST_CHANGED_SUBSCRIPTION = gql`
 `
 
 function App() {
-  const { loading, error, data, refetch, updateQuery } = useQuery(GET_POSTS)
+  const { loading, error, data, updateQuery } = useQuery(GET_POSTS)
   const [createPost, { loading: creating }] = useMutation(CREATE_POST)
   const { data: subscriptionData } = useSubscription(POST_CHANGED_SUBSCRIPTION)
   const [title, setTitle] = useState('')
